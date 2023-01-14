@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact form</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="st.css">
+        <link rel="stylesheet" href="styl.css">
+    </head>
+    <body>
+        <div class="container">
+            <form class="contact-form" action="javascript:sendEmail()">
+                <h3>CONTACT ME</h3>
+                <div class="input-group">
+                <input class="name" type="text"  placeholder="Your name" id="contact-name" onkeyup="validateName()">
+                <span id="name-error"></span>
+                </div>
+                <div class="input-group">
+                <input class="email" type="email" placeholder="Email id" id="contact-email" onkeyup="validateEmail()">
+                <span id="email-error"></span>
+                </div>
+                <div class="input-group">
+                <input class="phone" type="phone-no"  placeholder="Phone number" id="contact-phone" onkeyup="validatePhone()">
+                <span id="phone number-error"></span>
+                </div>
+                <div class="input-group">
+                <input class="message" type="message"  placeholder="Message" id="contact-message" onkeyup="validateMessage()">
+                <span id="message-error"></span>
+                </div>
+                <input type="submit" value="Send" onclick="return validateForm()">
+                <span id="submit-error"></span>
+            </form>
+        </div>
+        <script src="java.js"></script>
+        <script src="https://smtpjs.com/v3/smtp.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js">
+
+        </script>
+        <script>
+            function sendEmail()
+            {
+                var name=$("#contact-name").val();
+                var email=$("#contact-email").val();
+                var phone=$("#contact-phone").val();
+                var message=$("#contact-message").val();
+
+                var body="Name : " + name + "<br>Email : " + email + "<br>Phone : " + phone + "<br>Message : " + message;
+                
+            Email.send({
+            SecureToken : "bb7f43e7-aee6-4b41-bf9b-fd0c586b25e9",
+            To : 'devalogi888@gmail.com',
+            From : 'devalogi888@gmail.com',
+            Subject : "contact form",
+            Body : body
+                }).then(
+                message => {
+                    if(message=="OK")
+                    {
+                        window.location.replace("thankyou.html")
+                    }
+                    else{
+                        window.location.replace("error.html")
+                    }
+                }
+                );
+            }
+        </script>
+    </body>
+</html>
